@@ -1,0 +1,132 @@
+<%
+    require 'open-uri'
+    require 'nokogiri'
+
+url = 'http://baseball-data.com/player/s/'
+
+charset = nil
+
+html = open(url) do |f|
+    charset = f.charset
+    f.read
+end
+
+doc = Nokogiri::HTML.parse(html, nil, charset)
+
+
+
+cs = doc.xpath('//table[@class="tablesorter players"]//td')
+arrays = []
+cs.each do|c|
+   
+    arrays.push(c.text)
+    
+   
+end
+num = arrays.length
+for i in 1 .. num do
+    if i % 12 == 1
+      c1 = Player.new(name: arrays[i])
+        if c1.save
+            c1 = c1
+        else
+            c1 = Player.find_by(name: arrays[i])
+        end
+    elsif i % 12 == 2
+      c2 = Position.new(value: arrays[i])
+        if c2.save
+            c2 = c2
+        else
+            c2 = Position.find_by(value: arrays[i])
+        end
+        Relationshop.create(from_node: c1 , to_node: c2, rel: 'position')
+    elsif i % 12 == 3
+        c3 = Birth.new(value: arrays[i])
+        if c3.save
+            c3 = c3
+        else
+            c3 = Birth.find_by(value: arrays[i])
+        end
+        Relationshop.create(from_node: c1 , to_node: c3, rel: 'birth')
+    elsif i % 12 == 4
+       c4 = Age.new(value: arrays[i])
+        if c4.save
+            c4 = c4
+        else
+            c4 = Age.find_by(value: arrays[i])
+        end
+        Relationshop.create(from_node: c1 , to_node: c4, rel: 'age')    
+    elsif i % 12 == 5
+       c5 = Year.new(value: arrays[i])
+        if c5.save
+            c5 = c5
+        else
+            c5 = Year.find_by(value: arrays[i])
+        end
+        Relationshop.create(from_node: c1 , to_node: c5, rel: 'years of service')
+    elsif i % 12 == 6
+       c6 = Height.new(value: arrays[i])
+        if c6.save
+            c6 = c6
+        else
+            c6 = Height.find_by(value: arrays[i])
+        end
+        Relationshop.create(from_node: c1 , to_node: c6, rel: 'body-height')
+    elsif i % 12 == 7
+        c7 = Weight.new(value: arrays[i])
+        if c7.save
+            c7 = c7
+        else
+            c7 = Weight.find_by(value: arrays[i])
+        end
+        Relationshop.create(from_node: c1 , to_node: c7, rel: 'body-weight')
+    elsif i % 12 == 8
+       c8 = Blood.new(value: arrays[i])
+        if c8.save
+            c8 = c8
+        else
+            c8 = Blood.find_by(value: arrays[i])
+        end
+        Relationshop.create(from_node: c1 , to_node: c8, rel: 'blood-type')
+    elsif i % 12 == 9
+       c9 = Hand.new(value: arrays[i])
+        if c9.save
+            c9 = c9
+        else
+            c9 = Hand.find_by(value: arrays[i])
+        end
+        Relationshop.create(from_node: c1 , to_node: c9, rel: 'handed-type')
+    elsif i % 12 == 10
+        c10 = From.new(value: arrays[i])
+        if c10.save
+            c10 = c10
+        else
+            c10 = From.find_by(value: arrays[i])
+        end
+        Relationshop.create(from_node: c1 , to_node: c10, rel: 'born-in')
+    elsif i % 12 == 11
+        c11 = Income.new(value: arrays[i])
+        if c11.save
+            c11 = c11
+        else
+            c11 = Income.find_by(value: arrays[i])
+        end
+        Relationshop.create(from_node: c1 , to_node: c11, rel: 'slary')
+    end
+
+    
+    
+end
+
+#    Player.destroy_all
+#    Position.destroy_all
+#    Birth.destroy_all
+#    Age.destroy_all
+#    Year.destroy_all
+#    Height.destroy_all
+#    Weight.destroy_all
+#    Blood.destroy_all
+#    Hand.destroy_all
+#    From.destroy_all
+#    Income.destroy_all
+%>

@@ -1,0 +1,42 @@
+# This file is auto-generated from the current state of the database. Instead
+# of editing this file, please use the migrations feature of ActiveNode to
+# incrementally modify your database, and then regenerate this schema definition.
+#
+# Note that this schema.yml definition is the authoritative source for your
+# database schema. If you need to create the application database on another
+# system, you should be using neo4j:schema:load, not running all the migrations
+# from scratch. The latter is a flawed and unsustainable approach (the more migrations
+# you'll amass, the slower it'll run and the greater likelihood for issues).
+#
+# It's strongly recommended that you check this file into your version control system.
+
+---
+:constraints:
+- CONSTRAINT ON ( `neo4j::migrations::schemamigration`:`Neo4j::Migrations::SchemaMigration`
+  ) ASSERT `neo4j::migrations::schemamigration`.migration_id IS UNIQUE
+- CONSTRAINT ON ( age:Age ) ASSERT age.uuid IS UNIQUE
+- CONSTRAINT ON ( birth:Birth ) ASSERT birth.uuid IS UNIQUE
+- CONSTRAINT ON ( blood:Blood ) ASSERT blood.uuid IS UNIQUE
+- CONSTRAINT ON ( from:From ) ASSERT from.uuid IS UNIQUE
+- CONSTRAINT ON ( hand:Hand ) ASSERT hand.uuid IS UNIQUE
+- CONSTRAINT ON ( height:Height ) ASSERT height.uuid IS UNIQUE
+- CONSTRAINT ON ( income:Income ) ASSERT income.uuid IS UNIQUE
+- CONSTRAINT ON ( player:Player ) ASSERT player.uuid IS UNIQUE
+- CONSTRAINT ON ( position:Position ) ASSERT position.uuid IS UNIQUE
+- CONSTRAINT ON ( relationshop:Relationshop ) ASSERT relationshop.uuid IS UNIQUE
+- CONSTRAINT ON ( weight:Weight ) ASSERT weight.uuid IS UNIQUE
+- CONSTRAINT ON ( year:Year ) ASSERT year.uuid IS UNIQUE
+:indexes: []
+:versions:
+- '20171122075018'
+- '20171122075038'
+- '20171122075051'
+- '20171122075107'
+- '20171122075130'
+- '20171122075147'
+- '20171122075156'
+- '20171122075211'
+- '20171122075229'
+- '20171122075248'
+- '20171122075304'
+- '20171122075319'
